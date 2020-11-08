@@ -8,7 +8,7 @@ from django.db.models import Q
 # Create your views here.
 
 def get_students(request):
-    # 使用orm获取所有学生信息
+    # 使用orm获取所有的学生信息
     try:
         obj_students = Student.objects.all().values()
         # 结果转换为标准list
