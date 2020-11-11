@@ -33,3 +33,17 @@ def query_students(request):
         return JsonResponse({'code': 1, 'data': student})
     except Exception as e:
         return JsonResponse({'code': 0, 'msg': "查询学生信息错误出现异常，具体错误：" + str(e)})
+
+
+def is_exists_sno(request):
+    """判断学号是否存在"""
+    # 接收传递过来的学号
+    data = json.loads(request.body.decode('utf-8'))
+    obj_students = Student.objects.filter(sno=data['sno'])
+    try:
+        if obj_students.count() == 0:
+            return JsonResponse({'code': 1, 'exist': False})
+        else:
+            return JsonResponse({'code': 1, 'exist': True})
+    except Exception as e:
+        return JsonResponse({'code': 0, 'msg': "检验学号失败，具体原因:" + str(e)})
